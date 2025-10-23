@@ -83,16 +83,19 @@ jobs:
                 
             - name: Build and analyze
               env:
-                SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+                # O Token é definido APENAS como variável de ambiente (SONAR_TOKEN).
+                # O scanner irá lê-lo automaticamente.
+                SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} 
               run: |
                 SCANNER_PATH="${{ runner.temp }}/scanner/dotnet-sonarscanner"
                 
+                # Removido: /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
                 "$SCANNER_PATH" begin \
                   /k:"vinidows_pipeline044" \
                   /o:"vinidows" \
-                  /d:sonar.token="${{ secrets.SONAR_TOKEN }}" \
                   /d:sonar.host.url="https://sonarcloud.io"
                 
                 dotnet build
                 
-                "$SCANNER_PATH" end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+                # Removido: /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+                "$SCANNER_PATH" end
