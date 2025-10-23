@@ -92,7 +92,7 @@ jobs:
                   /o:"vinidows" \
                   /d:sonar.host.url="https://sonarcloud.io"
                 
-                dotnet build Review-Filmes.sln
+                dotnet build src/Review-Filmes.sln
               
                 "$SCANNER_PATH" end
 
