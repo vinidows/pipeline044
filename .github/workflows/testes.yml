@@ -84,7 +84,7 @@ jobs:
                 SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
                 SONAR_HOST_URL: https://sonarcloud.io
               with:
-                scanMetadataReportFile: .sonarqube/out/.sonar/report-task.txt
+                scanMetadataReportFile: ./src/.sonarqube/out/.sonar/report-task.txt
 
             - name: "Mostra status do quality gate"
               if: ${{ always()}}
