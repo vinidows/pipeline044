@@ -95,7 +95,7 @@ jobs:
                   /o:"vinidows" \
                   /d:sonar.host.url="https://sonarcloud.io"
                 
-                dotnet build
+                dotnet build src/Review-Filmes.sln
                 
                 # Removido: /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
                 "$SCANNER_PATH" end
