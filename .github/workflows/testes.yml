@@ -73,7 +73,20 @@ jobs:
                 dotnet sonarscanner begin \
                 /o:"vinidows" \
                 /k:"vinidows_pipeline044" \
-                /d:sonar.token="e4c5a39940f8b2fd2a0683d5a72ef7fd0bcc2611"
+                /d:sonar.token="secrets.SONAR_TOKEN"
                 dotnet build Review-Filmes.sln
-                dotnet sonarscanner end /d:sonar.token="e4c5a39940f8b2fd2a0683d5a72ef7fd0bcc2611"
+                dotnet sonarscanner end /d:sonar.token="secrets.SONAR_TOKEN"
                        
+            - name: Verificação de analise
+              uses: sonarsource/sonarqube-quality-gate-action@master
+              id: sonarqube-quality-gate-check
+              env:
+                SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+                SONAR_HOST_URL: https://sonarcloud.io
+              with:
+                scanMetadataReportFile:
+
+            - name: "Mostra status do quality gate"
+              if: ${{ always()}}
+              run: echo "O status do quality gate é ${{ steps.sonarqube-quality.gate.check.outputs.quality-gate-status }}"   
+            

@@ -24,6 +24,7 @@ jobs:
   testes:
     needs: [Build]
     uses: vinidows/pipeline044/.github/workflows/testes.yml@main
+    secrets: inherit
 
 
   release: 
