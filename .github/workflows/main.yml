@@ -21,6 +21,10 @@ jobs:
       - name: Execução do comando de build
         working-directory: ./src
         run: dotnet build Review-Filmes.sln
+  testes:
+    needs: [Build]
+    uses: vinidows/pipeline044/.github/workflows/testes.yml@main
+
 
   release: 
     name: Release
