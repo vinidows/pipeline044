@@ -73,17 +73,7 @@ jobs:
                 dotnet sonarscanner begin \
                 /o:"vinidows" \
                 /k:"vinidows_pipeline044" \
-                /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+                /d:sonar.token="e4c5a39940f8b2fd2a0683d5a72ef7fd0bcc2611"
                 dotnet build
-                dotnet sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
-                
-            - name: Debug Secret Access
-              working-directory: ./src
-              run: |
-                # Esta linha imprime "true" se a variável tiver um valor, e "false" se estiver vazia.
-                echo "SONAR_TOKEN está definido? ${{ secrets.SONAR_TOKEN != '' }}"
-                
-                # Adicione a linha abaixo APENAS para ver se o valor da variável está sendo lido
-                # Lembre-se que o GitHub Actions CENSURA a saída, mas pode não cobrir tudo.
-                # Remova esta linha após o teste!
-                echo "Token (Censurado): ${{ secrets.SONAR_TOKEN }}"               
+                dotnet sonarscanner end /d:sonar.token="e4c5a39940f8b2fd2a0683d5a72ef7fd0bcc2611"
+                       
