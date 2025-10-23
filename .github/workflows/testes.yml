@@ -50,7 +50,6 @@ jobs:
         runs-on: ubuntu-latest
         permissions:
           contents: read 
-          actions: write
         steps:
             - name: Pegando o codigo do projeto 
               uses: actions/checkout@v4
