@@ -20,4 +20,4 @@ jobs:
           dotnet-version: "8.0.300"
       - name: Execução do comando de build
           working_directory: ./src
-            run: dotnet build Review-Fillmes.sln
+            run: dotnet build Review-Filmes.sln
