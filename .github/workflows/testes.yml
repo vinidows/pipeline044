@@ -47,7 +47,10 @@ jobs:
 
     sonarqube:
         name: SCAN sonarqube
-        runs-on: ubuntu-latest 
+        runs-on: ubuntu-latest
+        permissions:
+          contents: read 
+          actions: write
         steps:
             - name: Pegando o codigo do projeto 
               uses: actions/checkout@v4
@@ -74,3 +77,14 @@ jobs:
                 /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
                 dotnet build
                 dotnet sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+                
+            - name: Debug Secret Access
+              working-directory: ./src
+              run: |
+                # Esta linha imprime "true" se a variável tiver um valor, e "false" se estiver vazia.
+                echo "SONAR_TOKEN está definido? ${{ secrets.SONAR_TOKEN != '' }}"
+                
+                # Adicione a linha abaixo APENAS para ver se o valor da variável está sendo lido
+                # Lembre-se que o GitHub Actions CENSURA a saída, mas pode não cobrir tudo.
+                # Remova esta linha após o teste!
+                echo "Token (Censurado): ${{ secrets.SONAR_TOKEN }}"               
