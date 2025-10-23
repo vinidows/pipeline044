@@ -51,56 +51,25 @@ jobs:
         steps:
             - name: Pegando o codigo do projeto 
               uses: actions/checkout@v4
-              with:
-                fetch-depth: 0
 
-            - name: SETUP .NET SDK
+            - name: SETUP JDK
+              uses: actions/setup-java@v4
+              with:
+                java-version: '21'
+            - name: SETUP dotnet
               uses: actions/setup-dotnet@v4
               with:
-                # Substitua '8.0.x' pela versão do .NET do seu projeto
-                dotnet-version: '8.0.x'
+                dotnet-version: '8.0.x'    
 
-            - name: Cache SonarCloud packages
-              uses: actions/cache@v4
-              with:
-                path: ~/.sonar/cache
-                key: ${{ runner.os }}-sonar
-                restore-keys: ${{ runner.os }}-sonar
-          
-            - name: Cache SonarCloud scanner
-              id: cache-sonar-scanner
-              uses: actions/cache@v4
-              with:
-                path: ${{ runner.temp }}\scanner
-                key: ${{ runner.os }}-sonar-scanner
-                restore-keys: ${{ runner.os }}-sonar-scanner
-                
-            - name: Install SonarCloud scanner
-              if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
-              run: |
-                mkdir -p ${{ runner.temp }}/scanner
-                dotnet tool update dotnet-sonarscanner --tool-path ${{ runner.temp }}/scanner
-                
-            - name: Build and analyze
-              # Define o token como uma variável de ambiente acessível a todos os comandos 'run'
-              env:
-                SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} 
-              run: |
-                # 1. Encontra o caminho do scanner instalado usando 'which'
-                # Este comando é mais confiável em ambientes CI.
-                SCANNER_PATH=$(which dotnet-sonarscanner)
-                
-                # 2. Inicia o pré-processamento (BEGIN)
-                "$SCANNER_PATH" begin \
-                  /o:"vinidows" \
-                  /k:"vinidows_pipeline044" \
-                  /d:sonar.host.url="https://sonarcloud.io" \
-                  /d:sonar.token="$SONAR_TOKEN"
-                
-                # 3. Compila o projeto (BUILD)
-                # Usando o caminho exato do arquivo de solução que foi verificado nos logs
-                dotnet build src/Review-Filmes.sln
-                
-                # 4. Finaliza a análise e envia os resultados para o SonarCloud (END)
-                "$SCANNER_PATH" end /d:sonar.token="$SONAR_TOKEN"
+            - name: Install SonarCloud 
+              run: dotnet tool install --global dotnet-sonarscanner
 
+            - name: build e analise
+              working-directory: ./src
+              run: |
+                dotnet sonarscanner begin \
+                /o:"vinidows" \
+                /k:"vinidows_pipeline044" \
+                /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+                dotnet build
+                dotnet sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
