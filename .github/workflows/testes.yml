@@ -16,3 +16,32 @@ jobs:
             - name: Execução de unidade
               working-directory: ./src
               run: dotnet test ./Review-Filmes.Test.Unit/Review-Filmes.Test.Unit.csproj
+
+    integration-test:
+        name: teste de integration
+        runs-on: ubuntu-latest
+        services:
+          postgre:
+              image: postgres:latest
+              ports:
+                  - 5432:5432
+              env:
+                  POSTGRES_USER: testeint
+                  POSTGRES_PASSWORD: postgrespwd
+                  POSTGRES_DB: testeint
+        steps:
+            - name: Pegando o codigo do projeto 
+              uses: actions/checkout@v4
+
+            - name: Setup dotnet
+              uses: actions/setup-dotnet@v4
+              with:
+                dotnet-version: "8.0.300"
+
+            - name: Execução de unidade
+              working-directory: ./src
+              run: dotnet test ./Review-Filmes.Test.Unit/Review-Filmes.Test.Unit.csproj
+
+              env:
+                ConnectionsStrings_DefaltConnection: "Host=localhost;Port=5432;Database=testeint;Username=testeint;Password=postgrespwd"
+
