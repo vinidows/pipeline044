@@ -38,7 +38,7 @@ jobs:
         uses: docker/build-push-action@v5.3.0
         with:
           context: ./src
-          file: ./src/Review-Filmes.web/Dockerfile
+          file: ./src/Review-Filmes.Web/Dockerfile
           push: true
           tags: | 
                 vinidows/pipeline044:v${{ github.run_number }}
