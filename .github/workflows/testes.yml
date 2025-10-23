@@ -86,8 +86,9 @@ jobs:
               env:
                 SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} 
               run: |
-                # 1. Encontra o caminho do scanner instalado
-                SCANNER_PATH=$(dotnet tool path dotnet-sonarscanner)
+                # 1. Encontra o caminho do scanner instalado usando 'which'
+                # Este comando é mais confiável em ambientes CI.
+                SCANNER_PATH=$(which dotnet-sonarscanner)
                 
                 # 2. Inicia o pré-processamento (BEGIN)
                 "$SCANNER_PATH" begin \
