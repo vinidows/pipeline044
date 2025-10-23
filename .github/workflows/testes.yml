@@ -82,17 +82,24 @@ jobs:
                 dotnet tool update dotnet-sonarscanner --tool-path ${{ runner.temp }}/scanner
                 
             - name: Build and analyze
+              # Define o token como uma variável de ambiente acessível a todos os comandos 'run'
               env:
                 SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} 
               run: |
-                SCANNER_PATH="${{ runner.temp }}/scanner/dotnet-sonarscanner"
+                # 1. Encontra o caminho do scanner instalado
+                SCANNER_PATH=$(dotnet tool path dotnet-sonarscanner)
                 
+                # 2. Inicia o pré-processamento (BEGIN)
                 "$SCANNER_PATH" begin \
-                  /k:"vinidows_pipeline044" \
                   /o:"vinidows" \
-                  /d:sonar.host.url="https://sonarcloud.io"
+                  /k:"vinidows_pipeline044" \
+                  /d:sonar.host.url="https://sonarcloud.io" \
+                  /d:sonar.token="$SONAR_TOKEN"
                 
+                # 3. Compila o projeto (BUILD)
+                # Usando o caminho exato do arquivo de solução que foi verificado nos logs
                 dotnet build src/Review-Filmes.sln
-              
-                "$SCANNER_PATH" end
+                
+                # 4. Finaliza a análise e envia os resultados para o SonarCloud (END)
+                "$SCANNER_PATH" end /d:sonar.token="$SONAR_TOKEN"
 
