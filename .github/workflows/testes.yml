@@ -88,5 +88,5 @@ jobs:
 
             - name: "Mostra status do quality gate"
               if: ${{ always()}}
-              run: echo "O status do quality gate é ${{ steps.sonarqube-quality.gate.check.outputs.quality-gate-status }}"   
+              run: echo "O status do quality gate é ${{ steps.sonarqube-quality-gate-check.outputs.quality-gate-status }}"   
             
