@@ -74,6 +74,6 @@ jobs:
                 /o:"vinidows" \
                 /k:"vinidows_pipeline044" \
                 /d:sonar.token="e4c5a39940f8b2fd2a0683d5a72ef7fd0bcc2611"
-                dotnet build
+                dotnet build Review-Filmes.sln
                 dotnet sonarscanner end /d:sonar.token="e4c5a39940f8b2fd2a0683d5a72ef7fd0bcc2611"
                        
