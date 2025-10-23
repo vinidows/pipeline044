@@ -73,7 +73,7 @@ jobs:
                 dotnet sonarscanner begin \
                 /o:"vinidows" \
                 /k:"vinidows_pipeline044" \
-                /d:sonar.token="secrets.SONAR_TOKEN"
+                /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
                 dotnet build Review-Filmes.sln
                 dotnet sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
                        
@@ -84,7 +84,7 @@ jobs:
                 SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
                 SONAR_HOST_URL: https://sonarcloud.io
               with:
-                scanMetadataReportFile:
+                scanMetadataReportFile: .sonarqube/out/.sonar/report-task.txt
 
             - name: "Mostra status do quality gate"
               if: ${{ always()}}
