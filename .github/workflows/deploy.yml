@@ -1,0 +1,22 @@
+name: Deploy K8S
+on: 
+    workflow_call:
+
+jobs:
+    Deploy-k8s:
+      runs-on: ubuntu-latest
+      environment: ${{ inputs.environment }}
+      steps:
+      - name: Checkout do codigo
+        uses: actions/checkout@v5.0.0      
+      - name: Configuração do Kubernetes
+        uses: azure/k8s-set-context@v4
+        with:
+          method: kubeconfig
+          kubeconfig: ${{ secrets.K8S_CONFIG }}
+      - name: Execução do manifesto
+        uses: Azure/k8s-deploy@v5
+        with:
+          manifests: ${{ inputs.manifests }}
+          images: ${{ inputs.images }}
+          namespace: ${{ vars.APP_NAMESPACE }}
