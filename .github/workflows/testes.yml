@@ -18,7 +18,7 @@ jobs:
               run: dotnet test ./Review-Filmes.Test.Unit/Review-Filmes.Test.Unit.csproj
 
     integration-test:
-        name: teste de integration
+        name: Teste de integração
         runs-on: ubuntu-latest
         services:
           postgre:
@@ -46,7 +46,7 @@ jobs:
                 ConnectionStrings_DefaltConnection: "Host=localhost;Port=5432;Database=testeint;Username=testeint;Password=postgrespwd"
 
     sonarqube:
-        name: SCAN sonarqube
+        name: Teste de scan com o Sonarqube
         runs-on: ubuntu-latest
         permissions:
           contents: read 
