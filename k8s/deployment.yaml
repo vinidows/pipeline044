@@ -84,7 +84,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: homologacao.corujaecuidado.com.br
+  - host: $(APP_HOST)
     http:
       paths:
       - pathType: Prefix

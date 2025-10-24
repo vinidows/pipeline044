@@ -4,7 +4,7 @@ on:
         inputs:
           environment-name:
               type: string
-              required: true # ou false, dependendo da sua regra 
+              required: true 
           environment-url:
               type: string
               required: true
@@ -12,7 +12,7 @@ on:
               type: string
               required: true
               description: 'Namespace do Kubernetes para o deploy.'
-          manifests: # <--- 🚀 NOVO INPUT ADICIONADO AQUI
+          manifests: 
               type: string
               required: true
               description: 'Caminho para os arquivos de manifesto Kubernetes.'
@@ -39,8 +39,8 @@ jobs:
           method: kubeconfig
           kubeconfig: ${{ secrets.K8S_CONFIG }}
 
-      - name: Update deployment
-        run: "sed -i 's/host: homologacao.corujaecuidado.com.br/host: ${{ vars.BASE_URL}}/g' k8s/deployment.yaml"
+      # - name: Update deployment
+      #   run: "sed -i 's/host: homologacao.corujaecuidado.com.br/host: ${{ vars.BASE_URL}}/g' k8s/deployment.yaml"
 
       - name: Deploy do manifesto
         uses: Azure/k8s-deploy@v5
@@ -48,3 +48,7 @@ jobs:
           namespace: ${{ inputs.K8S_NAMESPACE }}
           manifests: ${{ inputs.manifests }}
           images: vinidows/pipeline044:v${{ github.run_number }}
+        arguments: |
+                -path deployment.yaml
+                -set APP_HOST=${{ inputs.environment-url }}
+                # Isso substitui $(APP_HOST) pela URL correta (homologacao.corujaecuidado.com.br ou producao.corujaecuidado.com.br)
