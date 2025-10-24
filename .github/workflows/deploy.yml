@@ -48,6 +48,4 @@ jobs:
           namespace: ${{ inputs.K8S_NAMESPACE }}
           manifests: ${{ inputs.manifests }}
           images: vinidows/pipeline044:v${{ github.run_number }}
-          configuration: | 
-                - path: spec.rules[0].host
-                  value: ${{ inputs.environment-url }}
+        
