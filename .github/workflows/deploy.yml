@@ -14,7 +14,7 @@ jobs:
       name: "Deploy"
       runs-on: ubuntu-latest
       environment:
-          name: ${{ inputs.environment.name }}
+          name: ${{ inputs.environment-name }}
           url: ${{ inputs.environment-url }}
       steps:
       - name: Checkout do codigo
@@ -25,7 +25,7 @@ jobs:
         with:
           method: kubeconfig
           kubeconfig: ${{ secrets.K8S_CONFIG }}
-          
+
       - name: Update deployment
         run: "sed -i 's/host: homologacao.corujaecuidado.com.br/host: ${{ vars.BASE_URL}}/g' k8s/deployment.yaml"
 
