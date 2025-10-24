@@ -2,19 +2,21 @@ name: Deploy no K8S_CONFIG
 on:
     workflow_call:
         inputs:
-            environment:
-                type: string
-                required: true
-                description: "nome do ambiente"
+            environment-name:
+                name:
+                  type: string
+                  required: true
 
 jobs:
     Deploy:
       name: "Deploy"
       runs-on: ubuntu-latest
-      environment: ${{ inputs.environment }}
+      environment:
+          name: ${{ inputs.environment.name }}
       steps:
       - name: Checkout do codigo
-        uses: actions/checkout@v5.0.0      
+        uses: actions/checkout@v5.0.0
+
       - name: Configuração do Kubernetes
         uses: azure/k8s-set-context@v4
         with:
@@ -22,9 +24,9 @@ jobs:
           kubeconfig: ${{ secrets.K8S_CONFIG }}
 
 
-      - name: Execução do manifesto
+      - name: Deploy do manifesto
         uses: Azure/k8s-deploy@v5
         with:
           namespace: ${{ secrets.K8S_NAMESPACE}}
-          manifests: ${{ inputs.manifests }}
-          images: ${{ inputs.images }}
+          manifests: k8s/deployment.yaml
+          images: vinidows/pipeline044:v${{ github.run_number }}
