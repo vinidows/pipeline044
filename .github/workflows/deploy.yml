@@ -4,7 +4,7 @@ on:
         inputs:
           environment-name:
               type: string
-              required: true
+              required: false
           environment-url:
               type: string
               required: true
