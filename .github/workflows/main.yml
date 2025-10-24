@@ -78,20 +78,20 @@ jobs:
     secrets: inherit  
     with:
       manifests: k8s/deployment.yaml
-      environment-name: '${{ secrets.K8S_NAMESPACE }}'
+      environment-name: 'homologacao'
       environment-url: http://homologacao.corujaecuidado.com.br
-      
-
+  
+  
   deploy-producao:
     needs: [deploy-homologacao]
     uses: vinidows/pipeline044/.github/workflows/deploy.yml@main
+    secrets: inherit  
     with:
       manifests: k8s/deployment.yaml
-      environment-name: '${{ secrets.K8S_NAMESPACE }}'
+      environment-name: 'producao'
       environment-url: http://producao.corujaecuidado.com.br
-    secrets:
-      inherit: true
-      K8S_CONFIG: ${{ secrets.K8S_CONFIG }}
-      K8S_NAMESPACE: ${{ secrets.K8S_NAMESPACE }}
+      
+
+
       
             
