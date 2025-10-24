@@ -77,10 +77,9 @@ jobs:
     uses: vinidows/pipeline044/.github/workflows/deploy.yml@main
     secrets: inherit  
     with:
-      environment-name: ${{ secrets.K8S_NAMESPACE }}
       manifests: k8s/deployment.yaml
-      images: |
-        vinidows/pipeline044:v${{ github.run_number }}
+      environment-name: ${{ secrets.K8S_NAMESPACE }}
+      environment-url: http://homologacao.corujaecuidado.com.br
       
 
   deploy-producao:
@@ -88,9 +87,8 @@ jobs:
     uses: vinidows/pipeline044/.github/workflows/deploy.yml@main
     secrets: inherit  
     with:
-      environment-name: ${{ secrets.K8S_NAMESPACE }}
       manifests: k8s/deployment.yaml
-      images: |
-        vinidows/pipeline044:v${{ github.run_number }}
+      environment-name: ${{ secrets.K8S_NAMESPACE }
+      environment-url: http://producao.corujaecuidado.com.br
       
             

@@ -2,9 +2,12 @@ name: Deploy no K8S_CONFIG
 on:
     workflow_call:
         inputs:
-            environment-name:
-                  type: string
-                  required: true
+          environment-name:
+              type: string
+              required: true
+          environment-url:
+              type: string
+              required: true
 
 jobs:
     Deploy:
@@ -12,6 +15,7 @@ jobs:
       runs-on: ubuntu-latest
       environment:
           name: ${{ inputs.environment.name }}
+          url: ${{ inputs.environment-url }}
       steps:
       - name: Checkout do codigo
         uses: actions/checkout@v5.0.0
@@ -21,7 +25,9 @@ jobs:
         with:
           method: kubeconfig
           kubeconfig: ${{ secrets.K8S_CONFIG }}
-
+          
+      - name: Update deployment
+        run: "sed -i 's/host: homologacao.corujaecuidado.com.br/host: ${{ vars.BASE_URL}}/g' k8s/deployment.yaml"
 
       - name: Deploy do manifesto
         uses: Azure/k8s-deploy@v5
