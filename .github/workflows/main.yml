@@ -30,6 +30,8 @@ jobs:
   release: 
     name: Release
     runs-on: ubuntu-latest
+    permissions:
+      security-events: read
     needs: [testes]
     steps:
       - name: Pegando o codigo do projeto 
