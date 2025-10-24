@@ -2,6 +2,9 @@ name: Deploy no K8S_CONFIG
 on:
     workflow_call:
         inputs:
+          environment-name:
+              type: string
+              required: true # ou false, dependendo da sua regra 
           environment-url:
               type: string
               required: true
@@ -17,8 +20,7 @@ on:
         secrets: 
           K8S_CONFIG: 
             required: true
-          K8S_NAMESPACE: 
-            required: true
+          
 
 jobs:
     Deploy:
@@ -43,6 +45,6 @@ jobs:
       - name: Deploy do manifesto
         uses: Azure/k8s-deploy@v5
         with:
-          namespace: ${{ secrets.K8S_NAMESPACE}}
-          manifests: k8s/deployment.yaml
+          namespace: ${{ inputs.K8S_NAMESPACE }}
+          manifests: ${{ inputs.manifests }}
           images: vinidows/pipeline044:v${{ github.run_number }}

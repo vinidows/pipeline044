@@ -79,6 +79,7 @@ jobs:
     with:
       manifests: k8s/deployment.yaml
       k8s-namespace: 'homologacao'
+      environment-name: 'homologacao'
       environment-url: http://homologacao.corujaecuidado.com.br
   
   
@@ -89,6 +90,7 @@ jobs:
     with:
       manifests: k8s/deployment.yaml
       k8s-namespace: 'producao'
+      environment-name: 'producao'
       environment-url: http://producao.corujaecuidado.com.br
       
       
