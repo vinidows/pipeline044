@@ -80,7 +80,7 @@ jobs:
       manifests: k8s/deployment.yaml
       images: |
         vinidows/pipeline044:v${{ github.run_number }}
-      environment: homologacao
+      namespace: homologacao
 
   deploy-producao:
     needs: [deploy-homologacao]
@@ -90,5 +90,5 @@ jobs:
       manifests: k8s/deployment.yaml
       images: |
         vinidows/pipeline044:v${{ github.run_number }}
-      environment: producao
+      namespace: producao
             
