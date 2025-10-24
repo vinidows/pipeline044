@@ -71,3 +71,13 @@ jobs:
         with:
           category: docker-result
           sarif_file: trivy-docker-result.sarif
+
+CD-producao:
+  needs: [release]
+  uses: vinidows/pipeline044/.github/workflows/deploy.yml@main
+  with:
+    manifests: k8s/deployment.yaml
+    images: |
+      vinidows/pipeline044:v${{ github.run_number }}
+    environment: producao
+  secrets: inherit          
