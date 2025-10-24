@@ -48,7 +48,6 @@ jobs:
           namespace: ${{ inputs.K8S_NAMESPACE }}
           manifests: ${{ inputs.manifests }}
           images: vinidows/pipeline044:v${{ github.run_number }}
-          arguments: |
-                -path deployment.yaml
-                -set APP_HOST=${{ inputs.environment-url }}
-                # Isso substitui $(APP_HOST) pela URL correta (homologacao.corujaecuidado.com.br ou producao.corujaecuidado.com.br)
+          configuration: | 
+                - path: spec.rules[0].host
+                  value: ${{ inputs.environment-url }}

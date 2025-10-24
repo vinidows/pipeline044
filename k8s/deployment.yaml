@@ -84,7 +84,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: $(APP_HOST)
+  - host: corujaecuidado.com
     http:
       paths:
       - pathType: Prefix
