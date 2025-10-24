@@ -2,9 +2,6 @@ name: Deploy no K8S_CONFIG
 on:
     workflow_call:
         inputs:
-          environment-name:
-              type: string
-              required: false
           environment-url:
               type: string
               required: true
@@ -12,6 +9,11 @@ on:
               type: string
               required: true
               description: 'Namespace do Kubernetes para o deploy.'
+          manifests: # <--- 🚀 NOVO INPUT ADICIONADO AQUI
+              type: string
+              required: true
+              description: 'Caminho para os arquivos de manifesto Kubernetes.'
+                    
         secrets: 
           K8S_CONFIG: 
             required: true
