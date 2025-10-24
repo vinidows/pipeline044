@@ -2,14 +2,6 @@ name: Deploy no K8S_CONFIG
 on:
     workflow_call:
         inputs:
-            manifests:
-                type: string
-                required: true
-                description: "Arquivos de manifesto para o deploy"
-            images:
-                type: string
-                required: true
-                description: "Images que serão alterado no manifesto"
             environment:
                 type: string
                 required: true

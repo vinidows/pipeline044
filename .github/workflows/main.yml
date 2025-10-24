@@ -83,7 +83,7 @@ jobs:
       environment: homologacao
 
   deploy-producao:
-    needs: [release]
+    needs: [deploy-homologacao]
     uses: vinidows/pipeline044/.github/workflows/deploy.yml@main
     secrets: inherit  
     with:
