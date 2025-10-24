@@ -28,4 +28,3 @@ jobs:
           namespace: ${{ secrets.K8S_NAMESPACE}}
           manifests: ${{ inputs.manifests }}
           images: ${{ inputs.images }}
-          namespace: ${{ vars.APP_NAMESPACE }}
