@@ -31,7 +31,8 @@ jobs:
     name: Release
     runs-on: ubuntu-latest
     permissions:
-      security-events: read
+      contents: read
+      security-events: write
     needs: [testes]
     steps:
       - name: Pegando o codigo do projeto 
