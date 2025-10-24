@@ -64,7 +64,7 @@ jobs:
           severity: 'UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL'
 
       - name: Uploud arq trivy para o github
-        uses: github/codeql-action/uploud-sarif@v3
+        uses: github/codeql-action/upload-sarif@v4
         with:
           category: docker-result
           sarif_file: trivy-docker-result-sarif
