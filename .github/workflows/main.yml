@@ -72,7 +72,7 @@ jobs:
           category: docker-result
           sarif_file: trivy-docker-result.sarif
 
-deploy-homologação:
+deploy-homologacao:
   needs: [release]
   uses: vinidows/pipeline044/.github/workflows/deploy.yml@main
   with:
