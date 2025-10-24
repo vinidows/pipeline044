@@ -8,6 +8,10 @@ on:
           environment-url:
               type: string
               required: true
+          k8s-namespace: 
+              type: string
+              required: true
+              description: 'Namespace do Kubernetes para o deploy.'
 
 jobs:
     Deploy:
