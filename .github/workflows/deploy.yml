@@ -12,6 +12,11 @@ on:
               type: string
               required: true
               description: 'Namespace do Kubernetes para o deploy.'
+    secrets: 
+      K8S_CONFIG: 
+        required: true
+      K8S_NAMESPACE: 
+        required: true
 
 jobs:
     Deploy:

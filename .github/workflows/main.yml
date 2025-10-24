@@ -78,7 +78,7 @@ jobs:
     secrets: inherit  
     with:
       manifests: k8s/deployment.yaml
-      environment-name: 'homologacao'
+      k8s-namespace: 'homologacao'
       environment-url: http://homologacao.corujaecuidado.com.br
   
   
@@ -88,8 +88,9 @@ jobs:
     secrets: inherit  
     with:
       manifests: k8s/deployment.yaml
-      environment-name: 'producao'
+      k8s-namespace: 'producao'
       environment-url: http://producao.corujaecuidado.com.br
+      
       
 
 
