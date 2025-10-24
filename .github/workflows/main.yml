@@ -34,6 +34,11 @@ jobs:
     steps:
       - name: Pegando o codigo do projeto 
         uses: actions/checkout@v4
+      - name: Analise do Dockerfile
+        uses: hadolint/hadolint-action@v3.1.0
+        with:
+          dockerfile: ./src/Review-Filmes.Web/Dockerfile
+
       - name: Login Docker
         uses: docker/login-action@v3.1.0
         with:
