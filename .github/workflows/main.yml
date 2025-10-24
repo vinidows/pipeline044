@@ -75,9 +75,20 @@ jobs:
   deploy-homologacao:
     needs: [release]
     uses: vinidows/pipeline044/.github/workflows/deploy.yml@main
+    secrets: inherit  
+    with:
+      manifests: k8s/deployment.yaml
+      images: |
+        vinidows/pipeline044:v${{ github.run_number }}
+      environment: homologacao
+
+  deploy-producao:
+    needs: [release]
+    uses: vinidows/pipeline044/.github/workflows/deploy.yml@main
+    secrets: inherit  
     with:
       manifests: k8s/deployment.yaml
       images: |
         vinidows/pipeline044:v${{ github.run_number }}
       environment: producao
-    secrets: inherit          
+            

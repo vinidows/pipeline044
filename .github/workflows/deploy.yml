@@ -27,9 +27,12 @@ jobs:
         with:
           method: kubeconfig
           kubeconfig: ${{ secrets.K8S_CONFIG }}
+
+
       - name: Execução do manifesto
         uses: Azure/k8s-deploy@v5
         with:
+          namespace: ${{ secrets.K8S_NAMESPACE}}
           manifests: ${{ inputs.manifests }}
           images: ${{ inputs.images }}
           namespace: ${{ vars.APP_NAMESPACE }}
